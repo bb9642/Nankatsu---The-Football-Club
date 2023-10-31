@@ -1,0 +1,27 @@
+# Function to find the player possessing the ball
+def find_ball_possessor(N, ID, passes):
+    ball_holder = ID
+    stack = []
+
+    for i in range(N):
+        pass_type, *pass_args = passes[i].split()
+        if pass_type == 'P':
+            _, new_holder = pass_args
+            stack.append(ball_holder)
+            ball_holder = new_holder
+        else:
+            ball_holder = stack.pop()
+
+    return ball_holder
+
+# Input
+T = int(input())  # Number of test cases
+for _ in range(T):
+    N, ID = map(int, input().split())
+    passes = [input() for _ in range(N)]
+
+    # Find the player who possesses the ball
+    result = find_ball_possessor(N, ID, passes)
+
+    # Output
+    print("Player", result)
